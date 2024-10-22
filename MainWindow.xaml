@@ -1,0 +1,91 @@
+﻿<Window x:Class="Telegram_bot_WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:Telegram_bot_WPF"
+        
+        mc:Ignorable="d"
+        Title="TelegramBot" Height="450" Width="800" Background="#FF0B2338">
+    <Window.Resources>
+        <SolidColorBrush x:Key="buttonColor" Color="#FF254E65"/>
+        <SolidColorBrush x:Key="appColor" Color="#FF1C3B4D"/>
+        <SolidColorBrush x:Key="buttonBorderColor" Color="White"/>
+        <SolidColorBrush x:Key="buttonForeground" Color="White"/>
+        <sys:Double x:Key="buttonsFontSize">16</sys:Double>
+        <sys:Double x:Key="buttonsMargin">5</sys:Double>
+
+
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+
+        </Grid.ColumnDefinitions>
+
+        <ListBox x:Name="userList"  
+                 Grid.Column="0"
+                 FontSize="28" 
+                 Margin="5" Grid.RowSpan="4" 
+                 Background="{StaticResource appColor}"
+                 Foreground="White">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Name}" FontSize="20"/>
+                        <TextBlock Text="{Binding Id}" FontSize="12" Foreground="#FFBDD1E2"/>
+                    </StackPanel>
+
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ListBox x:Name="messageList" 
+                 FontSize="28" Margin="5" 
+                 Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="3"
+                 Background="{StaticResource appColor}" Foreground="White"
+                 ItemsSource="{Binding ElementName=userList, Path=SelectedItem.Messages}"/>
+        <TextBox x:Name="txtSendMes"
+                 FontSize="20" 
+                 Margin="5"
+                 TextWrapping="Wrap" 
+                 Grid.Column="1" Grid.ColumnSpan="3" 
+                 Grid.Row="1"
+                 Background="{StaticResource appColor}" Foreground="White" TextChanged="txtSendMes_TextChanged"/>
+        <StackPanel Grid.Column="1" Grid.Row="2"  Grid.ColumnSpan="10" Orientation="Horizontal">
+            <Button x:Name="btnSendMes" 
+                Content="Отправить" MaxHeight="40" MaxWidth="140" Margin="5" 
+                    FontSize="{StaticResource buttonsFontSize}" 
+                    Background="{StaticResource buttonColor}"
+                    BorderBrush="{StaticResource buttonBorderColor}" BorderThickness="2"
+                    Foreground="{StaticResource buttonForeground}" Click="btnSendMes_Click" RenderTransformOrigin="0.5,0.615"/>
+            <Button x:Name="but2" Content="Отправить стикер" MaxHeight="40" MaxWidth="200" Margin="5"
+                    FontSize="{StaticResource buttonsFontSize}" 
+                    Background="{StaticResource buttonColor}"
+                    BorderBrush="{StaticResource buttonBorderColor}" BorderThickness="2"
+                    Foreground="{StaticResource buttonForeground}" Click="but2_Click"/>
+            <Button x:Name="ShowLog" Content="Лог" Width="70" MaxHeight="40" Margin="5"
+                    FontSize="{StaticResource buttonsFontSize}" 
+                    Background="{StaticResource buttonColor}"
+                    BorderBrush="{StaticResource buttonBorderColor}" BorderThickness="2"
+                    Foreground="{StaticResource buttonForeground}"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="10" Orientation="Horizontal">
+            <Button x:Name="saveMessages" Content="Сохранить переписку" 
+                    Margin="5" MaxHeight="40" MaxWidth="210"
+                    FontSize="{StaticResource buttonsFontSize}" 
+                    Background="{StaticResource buttonColor}"
+                    BorderBrush="{StaticResource buttonBorderColor}" BorderThickness="2"
+                    Foreground="{StaticResource buttonForeground}" Click="saveMessages_Click" />
+        </StackPanel>
+
+
+    </Grid>
+</Window>
